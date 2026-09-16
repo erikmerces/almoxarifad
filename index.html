@@ -3,104 +3,410 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
-<meta name="theme-color" content="#0b0d10">
-<title>Almoxarifado — Contagem</title>
+<meta name="theme-color" content="#14161a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Almoxarifado">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%2314161a'/%3E%3Crect x='24' y='30' width='52' height='42' rx='6' fill='%23d9a441'/%3E%3Crect x='24' y='30' width='52' height='11' rx='6' fill='%23f2c66d'/%3E%3C/svg%3E">
+<title>Almoxarifado</title>
 <style>
-*{box-sizing:border-box;touch-action:manipulation}body{margin:0;background:#f4f5f7;color:#17191d;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
-.app{max-width:760px;margin:auto;padding:env(safe-area-inset-top) 16px calc(108px + env(safe-area-inset-bottom));}
-header{padding:22px 2px 16px;display:flex;justify-content:space-between;align-items:center}
-h1{font-size:25px;margin:0;font-weight:800;letter-spacing:-.7px}.sub{color:#737780;font-size:13px;margin-top:4px}
-.card{background:#fff;border:1px solid #e7e8eb;border-radius:20px;box-shadow:0 5px 20px #00000008;margin-bottom:12px}
-.controls{padding:14px}.row{display:flex;gap:9px}.input{width:100%;border:0;background:#f1f2f4;border-radius:14px;padding:14px;font-size:16px;outline:0;min-width:0}.input:focus{box-shadow:inset 0 0 0 2px #17191d}
-button{border:0;font:inherit;font-weight:700;cursor:pointer;-webkit-tap-highlight-color:transparent}.add{background:#111318;color:#fff;border-radius:14px;padding:0 18px;min-width:92px}
-.stats{display:flex;gap:10px;padding:0 2px 12px}.stat{flex:1;background:#fff;border:1px solid #e7e8eb;border-radius:17px;padding:12px 14px}.num{font-size:22px;font-weight:800}.label{font-size:11px;color:#7b7f87;margin-top:2px}
-.list{overflow:hidden}.empty{padding:42px 20px;text-align:center;color:#7b7f87}.empty b{display:block;color:#292c32;margin-bottom:6px}
-.item{display:flex;align-items:center;padding:14px 15px;border-bottom:1px solid #eee;gap:12px}.item:last-child{border-bottom:0}.info{flex:1;min-width:0}.name{font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.meta{font-size:11px;color:#888d96;margin-top:3px}.counter{display:flex;align-items:center;gap:8px}.circle{width:38px;height:38px;border-radius:12px;background:#eef0f2;color:#17191d;font-size:21px}.qty{min-width:30px;text-align:center;font-size:17px;font-weight:800}.del{background:transparent;color:#a0a3aa;font-size:18px;padding:8px 3px}
-.bottom{position:fixed;left:0;right:0;bottom:0;padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:#f4f5f7eF;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);z-index:5}.bottomin{max-width:728px;margin:auto;display:flex;gap:9px}.pdf{flex:1;background:#111318;color:#fff;border-radius:16px;padding:16px;font-size:15px;box-shadow:0 8px 25px #0002}.pdf:disabled{opacity:.6}.clear{background:#fff;border:1px solid #dddfe3;border-radius:16px;padding:0 17px;color:#555a63}
-dialog{border:0;border-radius:22px;padding:0;width:min(92%,430px);box-shadow:0 20px 70px #0004}dialog::backdrop{background:#0006}.modal{padding:20px}.modal h2{margin:0 0 15px;font-size:21px}.field{margin-bottom:10px}.field label{display:block;font-size:12px;color:#777b84;margin:0 0 6px 3px}.actions{display:flex;gap:9px;margin-top:15px}.actions button{flex:1;padding:14px;border-radius:14px}.cancel{background:#eee}.save{background:#111318;color:#fff}
-@media(min-width:700px){.app{padding-left:20px;padding-right:20px}}
+:root{
+  --bg:#14161a; --surface:#1b1e23; --surface-2:#20242a; --border:#2c3138;
+  --text:#e9eaed; --muted:#888e98; --muted-2:#5c626c;
+  --accent:#d9a441; --accent-text:#1a1305; --danger:#c9503f; --danger-bg:#3a211d;
+  --radius:10px; --font-ui:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  --font-mono:ui-monospace,"SF Mono","Roboto Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box;touch-action:manipulation}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font-ui);-webkit-font-smoothing:antialiased}
+.app{max-width:720px;margin:auto;padding:env(safe-area-inset-top) 16px calc(96px + env(safe-area-inset-bottom))}
+header{padding:20px 2px 4px;display:flex;justify-content:space-between;align-items:center}
+h1{font-size:20px;margin:0;font-weight:700;letter-spacing:-.2px}
+.icon-btn{background:transparent;border:1px solid var(--border);color:var(--muted);width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center}
+.icon-btn:active{background:var(--surface-2)}
+nav.tabs{display:flex;gap:4px;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:4px;margin:14px 0 16px}
+.tab{flex:1;padding:10px;border-radius:9px;background:transparent;color:var(--muted);font:inherit;font-weight:600;font-size:14px}
+.tab.active{background:var(--surface-2);color:var(--text)}
+.view{display:none}.view.active{display:block}
+.controls{display:flex;gap:8px;margin-bottom:12px}
+.input{width:100%;border:1px solid var(--border);background:var(--surface);color:var(--text);border-radius:var(--radius);padding:12px 13px;font-size:15px;outline:0;min-width:0;font-family:inherit}
+.input::placeholder{color:var(--muted-2)}
+.input:focus{border-color:var(--accent)}
+select.input{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23888e98'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 13px center;padding-right:32px}
+button{border:0;font:inherit;font-weight:600;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.btn-primary{background:var(--accent);color:var(--accent-text);border-radius:var(--radius);padding:12px 16px}
+.btn-ghost{background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:var(--radius);padding:12px 16px}
+.btn-sm{padding:8px 12px;border-radius:8px;font-size:13px}
+.add-btn{background:var(--accent);color:var(--accent-text);border-radius:var(--radius);padding:0 16px;min-width:52px;display:flex;align-items:center;justify-content:center}
+.stats{display:flex;gap:8px;margin-bottom:12px;font-size:13px;color:var(--muted)}
+.stats b{color:var(--text);font-family:var(--font-mono);font-weight:600}
+.stats span{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:7px 11px}
+.list{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+.empty{padding:36px 20px;text-align:center;color:var(--muted)}.empty b{display:block;color:var(--text);margin-bottom:6px;font-weight:600}
+.item,.agua-row{display:flex;align-items:center;padding:13px 14px;border-bottom:1px solid var(--border);gap:10px}
+.item:last-child,.agua-row:last-child{border-bottom:0}
+.info{flex:1;min-width:0}
+.name{font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.meta{font-size:12px;color:var(--muted);margin-top:3px;font-family:var(--font-mono)}
+.counter{display:flex;align-items:center;gap:6px}
+.circle{width:34px;height:34px;border-radius:9px;background:var(--surface-2);color:var(--text);font-size:18px;display:flex;align-items:center;justify-content:center;border:1px solid var(--border)}
+.circle:active{background:var(--border)}
+.qty-input{width:48px;text-align:center;font-size:15px;font-weight:600;background:transparent;border:0;color:var(--text);font-family:var(--font-mono)}
+.qty-input:focus{outline:1px solid var(--accent);border-radius:6px}
+.row-actions{display:flex;gap:2px}
+.icon-sm{background:transparent;color:var(--muted-2);padding:8px;border-radius:7px;display:flex}
+.icon-sm:active{background:var(--surface-2);color:var(--text)}
+.icon-sm.danger:active{color:var(--danger)}
+.agua-row{flex-direction:column;align-items:stretch;gap:8px}
+.agua-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.agua-galao{font-weight:600}
+.agua-empresa{font-size:13px;color:var(--muted);margin-top:2px}
+.agua-num{font-family:var(--font-mono);font-weight:700;font-size:16px;background:var(--surface-2);border:1px solid var(--border);border-radius:8px;padding:4px 9px;white-space:nowrap}
+.agua-bottom{display:flex;justify-content:space-between;align-items:center;font-family:var(--font-mono);font-size:12px;color:var(--muted)}
+.agua-form{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px;margin-bottom:14px}
+.form-title{font-size:13px;color:var(--muted);margin:0 0 10px;font-weight:600}
+.form-row{display:flex;gap:8px;margin-bottom:8px}
+.form-row:last-of-type{margin-bottom:0}
+.form-actions{display:flex;gap:8px;margin-top:10px}
+.form-actions .btn-primary{flex:1}
+.bottom{position:fixed;left:0;right:0;bottom:0;padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:linear-gradient(to top,var(--bg) 60%,transparent);z-index:5}
+.bottomin{max-width:688px;margin:auto}
+.bottomin .btn-primary{width:100%;padding:15px;font-size:15px;box-shadow:0 8px 24px #0006}
+dialog{border:0;border-radius:16px;padding:0;width:min(92%,420px);background:var(--surface);color:var(--text);box-shadow:0 20px 60px #000a}
+dialog::backdrop{background:#000a}
+.modal{padding:18px}
+.modal h2{margin:0 0 14px;font-size:18px;font-weight:700}
+.field{margin-bottom:10px}
+.field label{display:block;font-size:12px;color:var(--muted);margin:0 0 6px 2px}
+.actions{display:flex;gap:8px;margin-top:14px}
+.actions button{flex:1;padding:13px;border-radius:var(--radius)}
+.settings-list button{width:100%;text-align:left;padding:13px 12px;border-radius:9px;background:transparent;color:var(--text);display:flex;align-items:center;gap:10px;font-size:14px}
+.settings-list button:active{background:var(--surface-2)}
+.settings-list button.danger{color:var(--danger)}
+.settings-list hr{border:0;border-top:1px solid var(--border);margin:6px 0}
+svg{display:block}
 </style>
 </head>
 <body>
 <div class="app">
-<header><div><h1>Almoxarifado</h1><div class="sub">Contagem de estoque</div></div></header>
-<section class="card controls">
-  <div class="row"><input id="search" class="input" placeholder="🔎  Buscar item..." autocomplete="off"><button class="add" onclick="openAdd()">+ Item</button></div>
-</section>
-<div class="stats">
-  <div class="stat"><div id="itemCount" class="num">0</div><div class="label">ITENS</div></div>
-  <div class="stat"><div id="unitCount" class="num">0</div><div class="label">UNIDADES</div></div>
-</div>
-<section class="card list" id="list"></section>
-</div>
-<div class="bottom"><div class="bottomin"><button class="clear" onclick="clearAll()">Limpar</button><button class="pdf" id="pdfBtn" onclick="makePDF()">📄 Emitir PDF</button></div></div>
+<header>
+  <h1>Almoxarifado</h1>
+  <button class="icon-btn" onclick="dlgSettings.showModal()" aria-label="Configurações">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+  </button>
+</header>
 
+<nav class="tabs">
+  <button class="tab active" data-view="estoque" onclick="switchView('estoque')">Estoque</button>
+  <button class="tab" data-view="agua" onclick="switchView('agua')">Água</button>
+</nav>
+
+<!-- ESTOQUE -->
+<section class="view active" id="view-estoque">
+  <div class="controls">
+    <input id="search" class="input" placeholder="Buscar item ou código" autocomplete="off">
+    <select id="sortEstoque" class="input" style="max-width:120px" onchange="renderEstoque()">
+      <option value="recent">Recentes</option>
+      <option value="name">Nome A–Z</option>
+      <option value="qty">Quantidade</option>
+    </select>
+    <button class="add-btn" onclick="openItemDialog()" aria-label="Adicionar item">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 5v14M5 12h14"/></svg>
+    </button>
+  </div>
+  <div class="stats">
+    <span><b id="itemCount">0</b> itens</span>
+    <span><b id="unitCount">0</b> unidades</span>
+  </div>
+  <div class="list" id="listEstoque"></div>
+</section>
+
+<!-- AGUA -->
+<section class="view" id="view-agua">
+  <div class="agua-form">
+    <p class="form-title" id="aguaFormTitle">Registrar saída</p>
+    <div class="form-row">
+      <div style="flex:1"><label style="display:block;font-size:11px;color:var(--muted);margin-bottom:5px">Data de saída</label><input id="aguaData" type="date" class="input"></div>
+      <div style="flex:1"><label style="display:block;font-size:11px;color:var(--muted);margin-bottom:5px">Galão</label>
+        <select id="aguaGalao" class="input" onchange="toggleAguaCustom()">
+          <option value="20L">20L</option>
+          <option value="10L">10L</option>
+          <option value="5L">5L</option>
+          <option value="1,5L">1,5L</option>
+          <option value="500ml">500ml</option>
+          <option value="custom">Outro…</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-row" id="aguaCustomRow" style="display:none">
+      <input id="aguaGalaoCustom" class="input" placeholder="Descrever o galão">
+    </div>
+    <div class="form-row">
+      <div style="flex:1"><label style="display:block;font-size:11px;color:var(--muted);margin-bottom:5px">Quantidade</label><input id="aguaQtd" type="number" inputmode="numeric" min="1" value="1" class="input"></div>
+      <div style="flex:2"><label style="display:block;font-size:11px;color:var(--muted);margin-bottom:5px">Empresa de destino</label><input id="aguaEmpresa" class="input" placeholder="Nome da empresa"></div>
+    </div>
+    <div class="form-actions">
+      <button class="btn-ghost" id="aguaCancelBtn" style="display:none;flex:0 0 auto" onclick="cancelAguaEdit()">Cancelar</button>
+      <button class="btn-primary" id="aguaSaveBtn" onclick="saveAgua()">Registrar</button>
+    </div>
+  </div>
+  <div class="list" id="listAgua"></div>
+</section>
+
+</div>
+
+<div class="bottom"><div class="bottomin">
+  <button class="btn-primary" id="pdfEstoqueBtn" onclick="makePDFEstoque()" style="display:block">Emitir PDF da contagem</button>
+  <button class="btn-primary" id="pdfAguaBtn" onclick="makePDFAgua()" style="display:none">Emitir PDF de saídas</button>
+</div></div>
+
+<!-- Modal: item de estoque -->
 <dialog id="dlg"><div class="modal">
-<h2>Adicionar item</h2>
-<div class="field"><label>Nome do item</label><input id="name" class="input" placeholder="Ex.: Luva de látex"></div>
-<div class="field"><label>Código / referência (opcional)</label><input id="code" class="input" placeholder="Ex.: CA 25313"></div>
-<div class="field"><label>Quantidade</label><input id="initial" class="input" type="number" inputmode="numeric" min="0" value="0"></div>
-<div class="actions"><button class="cancel" onclick="dlg.close()">Cancelar</button><button class="save" onclick="saveItem()">Adicionar</button></div>
+  <h2 id="dlgTitle">Adicionar item</h2>
+  <div class="field"><label>Nome do item</label><input id="name" class="input" placeholder="Ex.: Luva de látex"></div>
+  <div class="field"><label>Código / referência (opcional)</label><input id="code" class="input" placeholder="Ex.: CA 25313"></div>
+  <div class="field"><label>Quantidade</label><input id="initial" class="input" type="number" inputmode="numeric" min="0" value="0"></div>
+  <div class="actions"><button class="btn-ghost" onclick="dlg.close()">Cancelar</button><button class="btn-primary" id="dlgSaveBtn" onclick="saveItem()">Adicionar</button></div>
 </div></dialog>
+
+<!-- Modal: configurações -->
+<dialog id="dlgSettings"><div class="modal">
+  <h2>Configurações</h2>
+  <div class="settings-list">
+    <button onclick="exportBackup()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0l-4-4m4 4l4-4"/><path d="M4 17v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg>
+      Exportar backup (.json)
+    </button>
+    <button onclick="fileImport.click()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 15V3m0 0l-4 4m4-4l4 4"/><path d="M4 17v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg>
+      Importar backup
+    </button>
+    <hr>
+    <button class="danger" onclick="clearEstoque()">Limpar contagem de estoque</button>
+    <button class="danger" onclick="clearAgua()">Limpar registros de água</button>
+  </div>
+  <div class="actions"><button class="btn-ghost" onclick="dlgSettings.close()" style="width:100%">Fechar</button></div>
+</div></dialog>
+<input type="file" id="fileImport" accept="application/json" style="display:none" onchange="importBackup(event)">
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
 <script>
-const KEY="almox_contagem_v1";
-let items=JSON.parse(localStorage.getItem(KEY)||"[]");
+const K_EST="almox_v2_estoque", K_AGUA="almox_v2_agua";
+let items=JSON.parse(localStorage.getItem(K_EST)||"[]");
+let agua=JSON.parse(localStorage.getItem(K_AGUA)||"[]");
+let editingAguaId=null;
 const $=id=>document.getElementById(id);
-function save(){localStorage.setItem(KEY,JSON.stringify(items));render()}
-function render(){
- const q=$("search").value.toLowerCase().trim();
- const shown=items.filter(x=>(x.name+" "+(x.code||"")).toLowerCase().includes(q));
- $("itemCount").textContent=items.length;
- $("unitCount").textContent=items.reduce((s,x)=>s+x.qty,0);
- $("list").innerHTML=shown.length?shown.map(x=>`<div class="item">
- <div class="info"><div class="name">${esc(x.name)}</div><div class="meta">${x.code?esc(x.code)+" · ":""}Atualizado agora</div></div>
- <div class="counter"><button class="circle" onclick="change('${x.id}',-1)">−</button><div class="qty">${x.qty}</div><button class="circle" onclick="change('${x.id}',1)">+</button></div>
- <button class="del" onclick="removeItem('${x.id}')" aria-label="Excluir">×</button></div>`).join(""):`<div class="empty"><b>${q?"Nenhum item encontrado":"Comece sua contagem"}</b>${q?"Tente outro nome.":"Toque em “+ Item” para adicionar o primeiro material."}</div>`;
-}
-function esc(s){return String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
-function openAdd(){["name","code","initial"].forEach(id=>$(id).value=id==="initial"?"0":"");$("dlg").showModal();setTimeout(()=>$("name").focus(),80)}
-function saveItem(){let name=$("name").value.trim();if(!name){$("name").focus();return}items.push({id:crypto.randomUUID(),name,code:$("code").value.trim(),qty:Math.max(0,parseInt($("initial").value||0,10))});save();$("dlg").close()}
-function change(id,n){let x=items.find(x=>x.id===id);if(x){x.qty=Math.max(0,x.qty+n);save()}}
-function removeItem(id){items=items.filter(x=>x.id!==id);save()}
-function clearAll(){if(items.length&&confirm("Apagar toda a contagem atual?")){items=[];save()}}
-$("search").addEventListener("input",render);
 
-function makePDF(){
- if(!items.length){alert("Adicione pelo menos um item antes de emitir o PDF.");return}
- const btn=$("pdfBtn");
- if(!window.jspdf){alert("Não foi possível carregar o gerador de PDF. Verifique sua conexão com a internet e tente novamente.");return}
- btn.disabled=true;const originalLabel=btn.textContent;btn.textContent="Gerando...";
- try{
-  const {jsPDF}=window.jspdf;
-  const doc=new jsPDF();
+function esc(s){return String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
+function saveEst(){localStorage.setItem(K_EST,JSON.stringify(items));renderEstoque()}
+function saveAguaData(){localStorage.setItem(K_AGUA,JSON.stringify(agua));renderAgua()}
+function fmtDateBR(iso){if(!iso)return"—";const[y,m,d]=iso.split("-");return`${d}/${m}/${y.slice(2)}`}
+function fmtUpdated(ts){if(!ts)return"";const d=new Date(ts);return`Atualizado ${String(d.getDate()).padStart(2,"0")}/${String(d.getMonth()+1).padStart(2,"0")} ${String(d.getHours()).padStart(2,"0")}:${String(d.getMinutes()).padStart(2,"0")}`}
+
+function switchView(v){
+  document.querySelectorAll(".tab").forEach(t=>t.classList.toggle("active",t.dataset.view===v));
+  $("view-estoque").classList.toggle("active",v==="estoque");
+  $("view-agua").classList.toggle("active",v==="agua");
+  $("pdfEstoqueBtn").style.display=v==="estoque"?"block":"none";
+  $("pdfAguaBtn").style.display=v==="agua"?"block":"none";
+}
+
+/* ---------- ESTOQUE ---------- */
+function renderEstoque(){
+  const q=$("search").value.toLowerCase().trim();
+  let shown=items.filter(x=>(x.name+" "+(x.code||"")).toLowerCase().includes(q));
+  const sort=$("sortEstoque").value;
+  if(sort==="name")shown=shown.slice().sort((a,b)=>a.name.localeCompare(b.name,"pt-BR"));
+  else if(sort==="qty")shown=shown.slice().sort((a,b)=>b.qty-a.qty);
+  else shown=shown.slice().sort((a,b)=>(b.updatedAt||0)-(a.updatedAt||0));
+  $("itemCount").textContent=items.length;
+  $("unitCount").textContent=items.reduce((s,x)=>s+x.qty,0);
+  $("listEstoque").innerHTML=shown.length?shown.map(x=>`<div class="item">
+    <div class="info"><div class="name">${esc(x.name)}</div><div class="meta">${x.code?esc(x.code)+" · ":""}${fmtUpdated(x.updatedAt)}</div></div>
+    <div class="counter">
+      <button class="circle" onclick="changeQty('${x.id}',-1)" aria-label="Diminuir">−</button>
+      <input class="qty-input" type="number" min="0" value="${x.qty}" onchange="setQty('${x.id}',this.value)">
+      <button class="circle" onclick="changeQty('${x.id}',1)" aria-label="Aumentar">+</button>
+    </div>
+    <div class="row-actions">
+      <button class="icon-sm" onclick="openItemDialog('${x.id}')" aria-label="Editar"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5"/><path d="M18.5 2.5a2.1 2.1 0 0 1 3 3L12 15l-4 1 1-4z"/></svg></button>
+      <button class="icon-sm danger" onclick="removeItem('${x.id}')" aria-label="Excluir"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m3 0-1 14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2L4 6"/></svg></button>
+    </div>
+  </div>`).join(""):`<div class="empty"><b>${q?"Nenhum item encontrado":"Comece sua contagem"}</b>${q?"Tente buscar outro nome ou código.":"Toque no + para adicionar o primeiro material."}</div>`;
+}
+function openItemDialog(id){
+  const editing=items.find(x=>x.id===id);
+  $("dlg").dataset.editing=editing?editing.id:"";
+  $("dlgTitle").textContent=editing?"Editar item":"Adicionar item";
+  $("dlgSaveBtn").textContent=editing?"Salvar":"Adicionar";
+  $("name").value=editing?editing.name:"";
+  $("code").value=editing?(editing.code||""):"";
+  $("initial").value=editing?editing.qty:0;
+  $("dlg").showModal();
+  setTimeout(()=>$("name").focus(),80);
+}
+function saveItem(){
+  const name=$("name").value.trim();
+  if(!name){$("name").focus();return}
+  const code=$("code").value.trim();
+  const qty=Math.max(0,parseInt($("initial").value||0,10));
+  const editingId=$("dlg").dataset.editing;
+  if(editingId){
+    const x=items.find(i=>i.id===editingId);
+    x.name=name;x.code=code;x.qty=qty;x.updatedAt=Date.now();
+  }else{
+    const dup=items.find(i=>i.name.toLowerCase()===name.toLowerCase()&&(i.code||"")===(code||""));
+    if(dup){
+      if(confirm(`Já existe "${dup.name}"${dup.code?" ("+dup.code+")":""}. Somar ${qty} à quantidade atual (${dup.qty})?`)){
+        dup.qty+=qty;dup.updatedAt=Date.now();
+      }else return;
+    }else{
+      items.push({id:crypto.randomUUID(),name,code,qty,updatedAt:Date.now()});
+    }
+  }
+  saveEst();$("dlg").close();
+}
+function changeQty(id,n){const x=items.find(x=>x.id===id);if(x){x.qty=Math.max(0,x.qty+n);x.updatedAt=Date.now();saveEst()}}
+function setQty(id,val){const x=items.find(x=>x.id===id);if(x){x.qty=Math.max(0,parseInt(val||0,10));x.updatedAt=Date.now();saveEst()}}
+function removeItem(id){const x=items.find(x=>x.id===id);if(x&&confirm(`Excluir "${x.name}"?`)){items=items.filter(i=>i.id!==id);saveEst()}}
+$("search").addEventListener("input",renderEstoque);
+
+/* ---------- AGUA ---------- */
+function toggleAguaCustom(){$("aguaCustomRow").style.display=$("aguaGalao").value==="custom"?"flex":"none"}
+function renderAgua(){
+  const sorted=agua.slice().sort((a,b)=>(b.data||"").localeCompare(a.data||"")||(b.createdAt-a.createdAt));
+  $("listAgua").innerHTML=sorted.length?sorted.map(x=>`<div class="agua-row">
+    <div class="agua-top">
+      <div><div class="agua-galao">${esc(x.galao)}</div><div class="agua-empresa">${esc(x.empresa||"—")}</div></div>
+      <div class="agua-num">${x.qtd}</div>
+    </div>
+    <div class="agua-bottom">
+      <span>${fmtDateBR(x.data)}</span>
+      <div class="row-actions">
+        <button class="icon-sm" onclick="editAgua('${x.id}')" aria-label="Editar"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5"/><path d="M18.5 2.5a2.1 2.1 0 0 1 3 3L12 15l-4 1 1-4z"/></svg></button>
+        <button class="icon-sm danger" onclick="removeAgua('${x.id}')" aria-label="Excluir"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m3 0-1 14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2L4 6"/></svg></button>
+      </div>
+    </div>
+  </div>`).join(""):`<div class="empty"><b>Nenhuma saída registrada</b>Registre a primeira retirada de água acima.</div>`;
+}
+function saveAgua(){
+  const galaoSel=$("aguaGalao").value;
+  const galao=galaoSel==="custom"?$("aguaGalaoCustom").value.trim():galaoSel;
+  const qtd=Math.max(1,parseInt($("aguaQtd").value||1,10));
+  const data=$("aguaData").value||new Date().toISOString().slice(0,10);
+  const empresa=$("aguaEmpresa").value.trim();
+  if(!galao){alert("Informe o galão.");return}
+  if(!empresa){$("aguaEmpresa").focus();return}
+  if(editingAguaId){
+    const x=agua.find(a=>a.id===editingAguaId);
+    x.galao=galao;x.qtd=qtd;x.data=data;x.empresa=empresa;
+    cancelAguaEdit();
+  }else{
+    agua.push({id:crypto.randomUUID(),galao,qtd,data,empresa,createdAt:Date.now()});
+  }
+  $("aguaGalao").value="20L";toggleAguaCustom();$("aguaGalaoCustom").value="";$("aguaQtd").value=1;$("aguaEmpresa").value="";$("aguaData").value="";
+  saveAguaData();
+}
+function editAgua(id){
+  const x=agua.find(a=>a.id===id);if(!x)return;
+  editingAguaId=id;
+  $("aguaFormTitle").textContent="Editar registro";
+  $("aguaSaveBtn").textContent="Salvar alteração";
+  $("aguaCancelBtn").style.display="block";
+  const known=["20L","10L","5L","1,5L","500ml"];
+  if(known.includes(x.galao)){$("aguaGalao").value=x.galao;toggleAguaCustom()}
+  else{$("aguaGalao").value="custom";toggleAguaCustom();$("aguaGalaoCustom").value=x.galao}
+  $("aguaQtd").value=x.qtd;$("aguaData").value=x.data;$("aguaEmpresa").value=x.empresa;
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+function cancelAguaEdit(){
+  editingAguaId=null;
+  $("aguaFormTitle").textContent="Registrar saída";
+  $("aguaSaveBtn").textContent="Registrar";
+  $("aguaCancelBtn").style.display="none";
+  $("aguaGalao").value="20L";toggleAguaCustom();$("aguaGalaoCustom").value="";$("aguaQtd").value=1;$("aguaEmpresa").value="";$("aguaData").value="";
+}
+function removeAgua(id){if(confirm("Excluir este registro?")){agua=agua.filter(a=>a.id!==id);saveAguaData()}}
+
+/* ---------- BACKUP ---------- */
+function exportBackup(){
+  const payload={version:2,exportedAt:new Date().toISOString(),items,agua};
+  const blob=new Blob([JSON.stringify(payload,null,2)],{type:"application/json"});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement("a");
+  a.href=url;a.download=`backup-almoxarifado-${new Date().toISOString().slice(0,10)}.json`;
+  document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);
+  dlgSettings.close();
+}
+function importBackup(ev){
+  const file=ev.target.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=()=>{
+    try{
+      const data=JSON.parse(reader.result);
+      if(!Array.isArray(data.items)||!Array.isArray(data.agua))throw new Error("Formato inválido");
+      if(confirm("Importar este backup vai substituir todos os dados atuais. Continuar?")){
+        items=data.items;agua=data.agua;saveEst();saveAguaData();dlgSettings.close();
+      }
+    }catch(e){alert("Não foi possível ler o backup: "+e.message)}
+    ev.target.value="";
+  };
+  reader.readAsText(file);
+}
+function clearEstoque(){if(items.length&&confirm("Apagar toda a contagem de estoque?")){items=[];saveEst();dlgSettings.close()}}
+function clearAgua(){if(agua.length&&confirm("Apagar todos os registros de água?")){agua=[];saveAguaData();dlgSettings.close()}}
+
+/* ---------- PDF ---------- */
+function pdfHeader(doc,title){
   const now=new Date(),date=now.toLocaleDateString("pt-BR"),time=now.toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"});
-  doc.setFont(undefined,"bold");doc.setFontSize(18);doc.text("CONTAGEM DE ESTOQUE",14,18);
-  doc.setFont(undefined,"normal");doc.setFontSize(10);doc.setTextColor(112,116,124);
+  doc.setFont(undefined,"bold");doc.setFontSize(17);doc.setTextColor(20,22,26);doc.text(title,14,18);
+  doc.setFont(undefined,"normal");doc.setFontSize(10);doc.setTextColor(110,115,124);
   doc.text(`Almoxarifado · ${date} às ${time}`,14,25);
   doc.setTextColor(0,0,0);
-  const total=items.reduce((s,x)=>s+x.qty,0);
-  doc.autoTable({
-   startY:31,
-   head:[["#","Item","Código / Referência","Quantidade"]],
-   body:items.map((x,i)=>[i+1,x.name,x.code||"—",x.qty]),
-   styles:{fontSize:10,cellPadding:6},
-   headStyles:{fillColor:[17,19,24],textColor:255},
-   columnStyles:{0:{cellWidth:12},3:{halign:"right",cellWidth:30}},
-   theme:"striped"
-  });
-  const finalY=doc.lastAutoTable.finalY||40;
-  doc.setFont(undefined,"bold");doc.setFontSize(12);
-  doc.text(`Total de unidades: ${total}`,196,finalY+12,{align:"right"});
-  doc.save(`contagem-estoque-${now.toISOString().slice(0,10)}.pdf`);
- }catch(err){
-  alert("Não foi possível gerar o PDF: "+err.message);
- }finally{
-  btn.disabled=false;btn.textContent=originalLabel;
- }
 }
-render();
+function makePDFEstoque(){
+  if(!items.length){alert("Adicione pelo menos um item antes de emitir o PDF.");return}
+  if(!window.jspdf){alert("Não foi possível carregar o gerador de PDF. Verifique sua conexão e tente novamente.");return}
+  const btn=$("pdfEstoqueBtn");btn.disabled=true;const label=btn.textContent;btn.textContent="Gerando…";
+  try{
+    const {jsPDF}=window.jspdf;const doc=new jsPDF();
+    pdfHeader(doc,"CONTAGEM DE ESTOQUE");
+    const total=items.reduce((s,x)=>s+x.qty,0);
+    doc.autoTable({startY:31,head:[["#","Item","Código / Referência","Quantidade"]],
+      body:items.map((x,i)=>[i+1,x.name,x.code||"—",x.qty]),
+      styles:{fontSize:10,cellPadding:6},headStyles:{fillColor:[26,29,34],textColor:255},
+      columnStyles:{0:{cellWidth:12},3:{halign:"right",cellWidth:30}},theme:"striped"});
+    const finalY=doc.lastAutoTable.finalY||40;
+    doc.setFont(undefined,"bold");doc.setFontSize(12);
+    doc.text(`Total de unidades: ${total}`,196,finalY+12,{align:"right"});
+    doc.save(`contagem-estoque-${new Date().toISOString().slice(0,10)}.pdf`);
+  }catch(err){alert("Não foi possível gerar o PDF: "+err.message)}
+  finally{btn.disabled=false;btn.textContent=label}
+}
+function makePDFAgua(){
+  if(!agua.length){alert("Registre pelo menos uma saída antes de emitir o PDF.");return}
+  if(!window.jspdf){alert("Não foi possível carregar o gerador de PDF. Verifique sua conexão e tente novamente.");return}
+  const btn=$("pdfAguaBtn");btn.disabled=true;const label=btn.textContent;btn.textContent="Gerando…";
+  try{
+    const {jsPDF}=window.jspdf;const doc=new jsPDF();
+    pdfHeader(doc,"CONTROLE DE SAÍDA DE ÁGUA");
+    const sorted=agua.slice().sort((a,b)=>(b.data||"").localeCompare(a.data||""));
+    const total=sorted.reduce((s,x)=>s+x.qtd,0);
+    doc.autoTable({startY:31,head:[["Galão","Quantidade","Data de Saída","Empresa"]],
+      body:sorted.map(x=>[x.galao,x.qtd,fmtDateBR(x.data),x.empresa||"—"]),
+      styles:{fontSize:10,cellPadding:6},headStyles:{fillColor:[26,29,34],textColor:255},
+      columnStyles:{1:{halign:"right",cellWidth:26}},theme:"striped"});
+    const finalY=doc.lastAutoTable.finalY||40;
+    doc.setFont(undefined,"bold");doc.setFontSize(12);
+    doc.text(`Total de unidades: ${total}`,196,finalY+12,{align:"right"});
+    doc.save(`controle-agua-${new Date().toISOString().slice(0,10)}.pdf`);
+  }catch(err){alert("Não foi possível gerar o PDF: "+err.message)}
+  finally{btn.disabled=false;btn.textContent=label}
+}
+
+$("aguaData").value=new Date().toISOString().slice(0,10);
+renderEstoque();renderAgua();
 </script>
 </body></html>
