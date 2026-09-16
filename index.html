@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <meta name="theme-color" content="#14161a">
+<meta name="color-scheme" content="dark">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Almoxarifado">
@@ -11,6 +12,7 @@
 <title>Almoxarifado</title>
 <style>
 :root{
+  color-scheme:dark;
   --bg:#14161a; --surface:#1b1e23; --surface-2:#20242a; --border:#2c3138;
   --text:#e9eaed; --muted:#888e98; --muted-2:#5c626c;
   --accent:#d9a441; --accent-text:#1a1305; --danger:#c9503f; --danger-bg:#3a211d;
@@ -23,22 +25,23 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font-ui);
 .app{max-width:720px;margin:auto;padding:env(safe-area-inset-top) 16px calc(96px + env(safe-area-inset-bottom))}
 header{padding:20px 2px 4px;display:flex;justify-content:space-between;align-items:center}
 h1{font-size:20px;margin:0;font-weight:700;letter-spacing:-.2px}
-.icon-btn{background:transparent;border:1px solid var(--border);color:var(--muted);width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center}
+.icon-btn{background:transparent;border:1px solid var(--border);color:var(--muted);width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex:none}
 .icon-btn:active{background:var(--surface-2)}
 nav.tabs{display:flex;gap:4px;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:4px;margin:14px 0 16px}
-.tab{flex:1;padding:10px;border-radius:9px;background:transparent;color:var(--muted);font:inherit;font-weight:600;font-size:14px}
+.tab{flex:1;padding:10px 6px;border-radius:9px;background:transparent;color:var(--muted);font:inherit;font-weight:600;font-size:13px}
 .tab.active{background:var(--surface-2);color:var(--text)}
 .view{display:none}.view.active{display:block}
 .controls{display:flex;gap:8px;margin-bottom:12px}
-.input{width:100%;border:1px solid var(--border);background:var(--surface);color:var(--text);border-radius:var(--radius);padding:12px 13px;font-size:15px;outline:0;min-width:0;font-family:inherit}
+.input{width:100%;border:1px solid var(--border);background:var(--surface);color:var(--text);border-radius:var(--radius);padding:12px 13px;font-size:15px;outline:0;min-width:0;font-family:inherit;min-height:48px}
 .input::placeholder{color:var(--muted-2)}
 .input:focus{border-color:var(--accent)}
-select.input{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23888e98'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 13px center;padding-right:32px}
+select.input{appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23888e98'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 13px center;padding-right:32px}
+input[type="date"].input{-webkit-appearance:none;appearance:none;height:48px;padding:0 13px;display:flex;align-items:center}
+input[type="date"].input::-webkit-date-and-time-value{text-align:left}
 button{border:0;font:inherit;font-weight:600;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .btn-primary{background:var(--accent);color:var(--accent-text);border-radius:var(--radius);padding:12px 16px}
 .btn-ghost{background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:var(--radius);padding:12px 16px}
-.btn-sm{padding:8px 12px;border-radius:8px;font-size:13px}
-.add-btn{background:var(--accent);color:var(--accent-text);border-radius:var(--radius);padding:0 16px;min-width:52px;display:flex;align-items:center;justify-content:center}
+.add-btn{background:var(--accent);color:var(--accent-text);border-radius:var(--radius);padding:0 16px;min-width:52px;display:flex;align-items:center;justify-content:center;flex:none}
 .stats{display:flex;gap:8px;margin-bottom:12px;font-size:13px;color:var(--muted)}
 .stats b{color:var(--text);font-family:var(--font-mono);font-weight:600}
 .stats span{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:7px 11px}
@@ -50,11 +53,11 @@ button{border:0;font:inherit;font-weight:600;cursor:pointer;-webkit-tap-highligh
 .name{font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .meta{font-size:12px;color:var(--muted);margin-top:3px;font-family:var(--font-mono)}
 .counter{display:flex;align-items:center;gap:6px}
-.circle{width:34px;height:34px;border-radius:9px;background:var(--surface-2);color:var(--text);font-size:18px;display:flex;align-items:center;justify-content:center;border:1px solid var(--border)}
+.circle{width:34px;height:34px;border-radius:9px;background:var(--surface-2);color:var(--text);font-size:18px;display:flex;align-items:center;justify-content:center;border:1px solid var(--border);flex:none}
 .circle:active{background:var(--border)}
 .qty-input{width:48px;text-align:center;font-size:15px;font-weight:600;background:transparent;border:0;color:var(--text);font-family:var(--font-mono)}
 .qty-input:focus{outline:1px solid var(--accent);border-radius:6px}
-.row-actions{display:flex;gap:2px}
+.row-actions{display:flex;gap:2px;flex:none}
 .icon-sm{background:transparent;color:var(--muted-2);padding:8px;border-radius:7px;display:flex}
 .icon-sm:active{background:var(--surface-2);color:var(--text)}
 .icon-sm.danger:active{color:var(--danger)}
@@ -62,7 +65,7 @@ button{border:0;font:inherit;font-weight:600;cursor:pointer;-webkit-tap-highligh
 .agua-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
 .agua-galao{font-weight:600}
 .agua-empresa{font-size:13px;color:var(--muted);margin-top:2px}
-.agua-num{font-family:var(--font-mono);font-weight:700;font-size:16px;background:var(--surface-2);border:1px solid var(--border);border-radius:8px;padding:4px 9px;white-space:nowrap}
+.agua-num{font-family:var(--font-mono);font-weight:700;font-size:16px;background:var(--surface-2);border:1px solid var(--border);border-radius:8px;padding:4px 9px;white-space:nowrap;flex:none}
 .agua-bottom{display:flex;justify-content:space-between;align-items:center;font-family:var(--font-mono);font-size:12px;color:var(--muted)}
 .agua-form{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px;margin-bottom:14px}
 .form-title{font-size:13px;color:var(--muted);margin:0 0 10px;font-weight:600}
@@ -70,6 +73,7 @@ button{border:0;font:inherit;font-weight:600;cursor:pointer;-webkit-tap-highligh
 .form-row:last-of-type{margin-bottom:0}
 .form-actions{display:flex;gap:8px;margin-top:10px}
 .form-actions .btn-primary{flex:1}
+.fieldlabel{display:block;font-size:11px;color:var(--muted);margin-bottom:5px}
 .bottom{position:fixed;left:0;right:0;bottom:0;padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:linear-gradient(to top,var(--bg) 60%,transparent);z-index:5}
 .bottomin{max-width:688px;margin:auto}
 .bottomin .btn-primary{width:100%;padding:15px;font-size:15px;box-shadow:0 8px 24px #0006}
@@ -85,11 +89,34 @@ dialog::backdrop{background:#000a}
 .settings-list button:active{background:var(--surface-2)}
 .settings-list button.danger{color:var(--danger)}
 .settings-list hr{border:0;border-top:1px solid var(--border);margin:6px 0}
+.list-toolbar{display:flex;gap:8px;margin-bottom:12px}
+.list-toolbar select{flex:1}
+.field-chip{display:flex;align-items:center;gap:8px;padding:10px 4px;border-bottom:1px solid var(--border)}
+.field-chip:last-child{border-bottom:0}
+.field-chip .fname{flex:1;font-weight:600;font-size:14px}
+.type-badge{font-size:11px;color:var(--muted);background:var(--surface-2);border:1px solid var(--border);border-radius:6px;padding:3px 7px;font-family:var(--font-mono)}
+.custom-row{display:flex;flex-direction:column;gap:4px;padding:13px 14px;border-bottom:1px solid var(--border)}
+.custom-row:last-child{border-bottom:0}
+.custom-row .crow-line{display:flex;justify-content:space-between;gap:10px;font-size:13px}
+.custom-row .crow-line b{font-weight:600}
+.custom-row .crow-line span.lbl{color:var(--muted)}
 svg{display:block}
+.print-area{display:none}
+@media print{
+  #appShell,.bottom,dialog{display:none!important}
+  .print-area{display:block!important;color:#000;background:#fff}
+  .print-header h1{font-size:20px;margin:0 0 2px}
+  .print-header p{font-size:11px;color:#555;margin:0 0 16px}
+  .print-table{width:100%;border-collapse:collapse;font-size:12px}
+  .print-table th,.print-table td{border:1px solid #ccc;padding:6px 8px;text-align:left}
+  .print-table th{background:#111;color:#fff}
+  .print-table td.num{text-align:right;font-variant-numeric:tabular-nums}
+  .print-total{text-align:right;margin-top:12px;font-size:13px}
+}
 </style>
 </head>
 <body>
-<div class="app">
+<div class="app" id="appShell">
 <header>
   <h1>Almoxarifado</h1>
   <button class="icon-btn" onclick="dlgSettings.showModal()" aria-label="Configurações">
@@ -100,13 +127,14 @@ svg{display:block}
 <nav class="tabs">
   <button class="tab active" data-view="estoque" onclick="switchView('estoque')">Estoque</button>
   <button class="tab" data-view="agua" onclick="switchView('agua')">Água</button>
+  <button class="tab" data-view="custom" onclick="switchView('custom')">Personalizado</button>
 </nav>
 
 <!-- ESTOQUE -->
 <section class="view active" id="view-estoque">
   <div class="controls">
     <input id="search" class="input" placeholder="Buscar item ou código" autocomplete="off">
-    <select id="sortEstoque" class="input" style="max-width:120px" onchange="renderEstoque()">
+    <select id="sortEstoque" class="input" style="max-width:110px;flex:none" onchange="renderEstoque()">
       <option value="recent">Recentes</option>
       <option value="name">Nome A–Z</option>
       <option value="qty">Quantidade</option>
@@ -127,8 +155,8 @@ svg{display:block}
   <div class="agua-form">
     <p class="form-title" id="aguaFormTitle">Registrar saída</p>
     <div class="form-row">
-      <div style="flex:1"><label style="display:block;font-size:11px;color:var(--muted);margin-bottom:5px">Data de saída</label><input id="aguaData" type="date" class="input"></div>
-      <div style="flex:1"><label style="display:block;font-size:11px;color:var(--muted);margin-bottom:5px">Galão</label>
+      <div style="flex:1"><label class="fieldlabel">Data de saída</label><input id="aguaData" type="date" class="input"></div>
+      <div style="flex:1"><label class="fieldlabel">Galão</label>
         <select id="aguaGalao" class="input" onchange="toggleAguaCustom()">
           <option value="20L">20L</option>
           <option value="10L">10L</option>
@@ -143,8 +171,8 @@ svg{display:block}
       <input id="aguaGalaoCustom" class="input" placeholder="Descrever o galão">
     </div>
     <div class="form-row">
-      <div style="flex:1"><label style="display:block;font-size:11px;color:var(--muted);margin-bottom:5px">Quantidade</label><input id="aguaQtd" type="number" inputmode="numeric" min="1" value="1" class="input"></div>
-      <div style="flex:2"><label style="display:block;font-size:11px;color:var(--muted);margin-bottom:5px">Empresa de destino</label><input id="aguaEmpresa" class="input" placeholder="Nome da empresa"></div>
+      <div style="flex:1"><label class="fieldlabel">Quantidade</label><input id="aguaQtd" type="number" inputmode="numeric" min="1" value="1" class="input"></div>
+      <div style="flex:2"><label class="fieldlabel">Empresa de destino</label><input id="aguaEmpresa" class="input" placeholder="Nome da empresa"></div>
     </div>
     <div class="form-actions">
       <button class="btn-ghost" id="aguaCancelBtn" style="display:none;flex:0 0 auto" onclick="cancelAguaEdit()">Cancelar</button>
@@ -154,11 +182,43 @@ svg{display:block}
   <div class="list" id="listAgua"></div>
 </section>
 
+<!-- PERSONALIZADO -->
+<section class="view" id="view-custom">
+  <div id="customEmpty" class="list" style="display:none">
+    <div class="empty"><b>Crie sua primeira lista personalizada</b>Defina os campos que quiser e comece a registrar.</div>
+  </div>
+  <div id="customBody" style="display:none">
+    <div class="list-toolbar">
+      <select id="customListSelect" class="input" onchange="selectCustomList(this.value)"></select>
+      <button class="icon-btn" onclick="openFieldsDialog()" aria-label="Gerenciar campos">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 21v-7"/><path d="M4 10V3"/><path d="M12 21v-9"/><path d="M12 8V3"/><path d="M20 21v-5"/><path d="M20 12V3"/><path d="M1 14h6"/><path d="M9 8h6"/><path d="M17 16h6"/></svg>
+      </button>
+      <button class="icon-btn" onclick="deleteCurrentList()" aria-label="Excluir lista">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m3 0-1 14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2L4 6"/></svg>
+      </button>
+      <button class="icon-btn" onclick="openNewListDialog()" aria-label="Nova lista">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 5v14M5 12h14"/></svg>
+      </button>
+    </div>
+    <div id="customNoFields" class="list" style="display:none"><div class="empty"><b>Esta lista ainda não tem campos</b>Toque no ícone de campos acima para adicionar o primeiro.</div></div>
+    <div id="customFormWrap" class="agua-form" style="display:none">
+      <p class="form-title" id="customFormTitle">Novo registro</p>
+      <div id="customFormFields"></div>
+      <div class="form-actions">
+        <button class="btn-ghost" id="customCancelBtn" style="display:none;flex:0 0 auto" onclick="cancelCustomEdit()">Cancelar</button>
+        <button class="btn-primary" onclick="saveCustomEntry()">Adicionar registro</button>
+      </div>
+    </div>
+    <div class="list" id="listCustom"></div>
+  </div>
+</section>
+
 </div>
 
 <div class="bottom"><div class="bottomin">
   <button class="btn-primary" id="pdfEstoqueBtn" onclick="makePDFEstoque()" style="display:block">Emitir PDF da contagem</button>
   <button class="btn-primary" id="pdfAguaBtn" onclick="makePDFAgua()" style="display:none">Emitir PDF de saídas</button>
+  <button class="btn-primary" id="pdfCustomBtn" onclick="makePDFCustom()" style="display:none">Emitir PDF da lista</button>
 </div></div>
 
 <!-- Modal: item de estoque -->
@@ -168,6 +228,28 @@ svg{display:block}
   <div class="field"><label>Código / referência (opcional)</label><input id="code" class="input" placeholder="Ex.: CA 25313"></div>
   <div class="field"><label>Quantidade</label><input id="initial" class="input" type="number" inputmode="numeric" min="0" value="0"></div>
   <div class="actions"><button class="btn-ghost" onclick="dlg.close()">Cancelar</button><button class="btn-primary" id="dlgSaveBtn" onclick="saveItem()">Adicionar</button></div>
+</div></dialog>
+
+<!-- Modal: nova lista personalizada -->
+<dialog id="dlgNewList"><div class="modal">
+  <h2>Nova lista</h2>
+  <div class="field"><label>Nome da lista</label><input id="newListName" class="input" placeholder="Ex.: Controle de EPI"></div>
+  <div class="actions"><button class="btn-ghost" onclick="dlgNewList.close()">Cancelar</button><button class="btn-primary" onclick="createCustomList()">Criar</button></div>
+</div></dialog>
+
+<!-- Modal: gerenciar campos -->
+<dialog id="dlgFields"><div class="modal">
+  <h2>Campos da lista</h2>
+  <div class="list" id="fieldsList" style="margin-bottom:14px"></div>
+  <div class="form-row">
+    <input id="newFieldLabel" class="input" placeholder="Nome do campo" style="flex:2">
+    <select id="newFieldType" class="input" style="flex:1">
+      <option value="texto">Texto</option>
+      <option value="numero">Número</option>
+      <option value="data">Data</option>
+    </select>
+  </div>
+  <div class="actions"><button class="btn-ghost" onclick="dlgFields.close();renderCustomView()">Fechar</button><button class="btn-primary" onclick="addField()">Adicionar campo</button></div>
 </div></dialog>
 
 <!-- Modal: configurações -->
@@ -185,32 +267,36 @@ svg{display:block}
     <hr>
     <button class="danger" onclick="clearEstoque()">Limpar contagem de estoque</button>
     <button class="danger" onclick="clearAgua()">Limpar registros de água</button>
+    <button class="danger" onclick="clearCurrentCustomEntries()">Limpar registros da lista personalizada atual</button>
   </div>
   <div class="actions"><button class="btn-ghost" onclick="dlgSettings.close()" style="width:100%">Fechar</button></div>
 </div></dialog>
 <input type="file" id="fileImport" accept="application/json" style="display:none" onchange="importBackup(event)">
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+<div class="print-area" id="printArea"></div>
+
 <script>
-const K_EST="almox_v2_estoque", K_AGUA="almox_v2_agua";
+const K_EST="almox_v3_estoque", K_AGUA="almox_v3_agua", K_CUSTOM="almox_v3_custom";
 let items=JSON.parse(localStorage.getItem(K_EST)||"[]");
 let agua=JSON.parse(localStorage.getItem(K_AGUA)||"[]");
-let editingAguaId=null;
+let custom=JSON.parse(localStorage.getItem(K_CUSTOM)||'{"lists":[],"activeId":null}');
+let editingAguaId=null, editingCustomId=null;
+const TYPE_LABELS={texto:"Texto",numero:"Número",data:"Data"};
 const $=id=>document.getElementById(id);
 
 function esc(s){return String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
 function saveEst(){localStorage.setItem(K_EST,JSON.stringify(items));renderEstoque()}
 function saveAguaData(){localStorage.setItem(K_AGUA,JSON.stringify(agua));renderAgua()}
+function saveCustomData(){localStorage.setItem(K_CUSTOM,JSON.stringify(custom));renderCustomView()}
 function fmtDateBR(iso){if(!iso)return"—";const[y,m,d]=iso.split("-");return`${d}/${m}/${y.slice(2)}`}
 function fmtUpdated(ts){if(!ts)return"";const d=new Date(ts);return`Atualizado ${String(d.getDate()).padStart(2,"0")}/${String(d.getMonth()+1).padStart(2,"0")} ${String(d.getHours()).padStart(2,"0")}:${String(d.getMinutes()).padStart(2,"0")}`}
 
 function switchView(v){
   document.querySelectorAll(".tab").forEach(t=>t.classList.toggle("active",t.dataset.view===v));
-  $("view-estoque").classList.toggle("active",v==="estoque");
-  $("view-agua").classList.toggle("active",v==="agua");
+  ["estoque","agua","custom"].forEach(name=>$("view-"+name).classList.toggle("active",name===v));
   $("pdfEstoqueBtn").style.display=v==="estoque"?"block":"none";
   $("pdfAguaBtn").style.display=v==="agua"?"block":"none";
+  $("pdfCustomBtn").style.display=v==="custom"&&activeCustomList()?"block":"none";
 }
 
 /* ---------- ESTOQUE ---------- */
@@ -330,9 +416,137 @@ function cancelAguaEdit(){
 }
 function removeAgua(id){if(confirm("Excluir este registro?")){agua=agua.filter(a=>a.id!==id);saveAguaData()}}
 
+/* ---------- PERSONALIZADO ---------- */
+function activeCustomList(){return custom.lists.find(l=>l.id===custom.activeId)||null}
+function openNewListDialog(){$("newListName").value="";dlgNewList.showModal();setTimeout(()=>$("newListName").focus(),80)}
+function createCustomList(){
+  const name=$("newListName").value.trim();
+  if(!name){$("newListName").focus();return}
+  const list={id:crypto.randomUUID(),name,fields:[],entries:[]};
+  custom.lists.push(list);custom.activeId=list.id;
+  saveCustomData();dlgNewList.close();
+  openFieldsDialog();
+}
+function selectCustomList(id){custom.activeId=id;editingCustomId=null;saveCustomData()}
+function deleteCurrentList(){
+  const list=activeCustomList();if(!list)return;
+  if(confirm(`Excluir a lista "${list.name}" e todos os seus registros?`)){
+    custom.lists=custom.lists.filter(l=>l.id!==list.id);
+    custom.activeId=custom.lists.length?custom.lists[0].id:null;
+    saveCustomData();
+  }
+}
+function openFieldsDialog(){renderFieldsDialog();dlgFields.showModal()}
+function renderFieldsDialog(){
+  const list=activeCustomList();
+  $("fieldsList").innerHTML=list&&list.fields.length?list.fields.map(f=>`<div class="field-chip">
+    <span class="fname">${esc(f.label)}</span><span class="type-badge">${TYPE_LABELS[f.type]}</span>
+    <button class="icon-sm danger" onclick="removeField('${f.id}')" aria-label="Remover campo"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+  </div>`).join(""):`<div class="empty" style="padding:20px"><b>Nenhum campo ainda</b>Adicione o primeiro abaixo.</div>`;
+}
+function addField(){
+  const list=activeCustomList();if(!list)return;
+  const label=$("newFieldLabel").value.trim();
+  const type=$("newFieldType").value;
+  if(!label){$("newFieldLabel").focus();return}
+  list.fields.push({id:crypto.randomUUID(),label,type});
+  $("newFieldLabel").value="";
+  saveCustomData();renderFieldsDialog();
+}
+function removeField(fieldId){
+  const list=activeCustomList();if(!list)return;
+  if(!confirm("Remover este campo? Os valores já registrados para ele serão apagados de todos os itens da lista."))return;
+  list.fields=list.fields.filter(f=>f.id!==fieldId);
+  list.entries.forEach(e=>{delete e.values[fieldId]});
+  saveCustomData();renderFieldsDialog();
+}
+function renderCustomView(){
+  const hasLists=custom.lists.length>0;
+  $("customEmpty").style.display=hasLists?"none":"block";
+  $("customBody").style.display=hasLists?"block":"none";
+  if(!hasLists){$("pdfCustomBtn").style.display="none";return}
+  if(!custom.activeId||!activeCustomList())custom.activeId=custom.lists[0].id;
+  $("customListSelect").innerHTML=custom.lists.map(l=>`<option value="${l.id}" ${l.id===custom.activeId?"selected":""}>${esc(l.name)}</option>`).join("");
+  const list=activeCustomList();
+  const hasFields=list.fields.length>0;
+  $("customNoFields").style.display=hasFields?"none":"block";
+  $("customFormWrap").style.display=hasFields?"block":"none";
+  if(hasFields)renderCustomForm();
+  renderCustomEntries();
+  const activeTab=document.querySelector(".tab.active").dataset.view;
+  $("pdfCustomBtn").style.display=activeTab==="custom"&&list.entries.length?"block":"none";
+}
+function renderCustomForm(){
+  const list=activeCustomList();
+  $("customFormFields").innerHTML=list.fields.map(f=>{
+    const inputType=f.type==="numero"?"number":f.type==="data"?"date":"text";
+    return `<div class="field"><label class="fieldlabel">${esc(f.label)}</label><input class="input custom-field-input" data-field-id="${f.id}" type="${inputType}"></div>`;
+  }).join("");
+}
+function saveCustomEntry(){
+  const list=activeCustomList();if(!list)return;
+  const values={};
+  document.querySelectorAll(".custom-field-input").forEach(inp=>{
+    const f=list.fields.find(f=>f.id===inp.dataset.fieldId);
+    let v=inp.value;
+    if(f&&f.type==="numero")v=v===""?null:parseFloat(v);
+    values[inp.dataset.fieldId]=v;
+  });
+  if(editingCustomId){
+    const e=list.entries.find(e=>e.id===editingCustomId);
+    e.values=values;
+    cancelCustomEdit();
+  }else{
+    list.entries.push({id:crypto.randomUUID(),values,createdAt:Date.now()});
+  }
+  document.querySelectorAll(".custom-field-input").forEach(inp=>inp.value="");
+  saveCustomData();
+}
+function renderCustomEntries(){
+  const list=activeCustomList();
+  const sorted=list.entries.slice().sort((a,b)=>b.createdAt-a.createdAt);
+  $("listCustom").innerHTML=sorted.length?sorted.map(e=>`<div class="custom-row">
+    ${list.fields.map(f=>`<div class="crow-line"><span class="lbl">${esc(f.label)}</span><b>${esc(fmtCustomValue(f,e.values[f.id]))}</b></div>`).join("")}
+    <div class="row-actions" style="justify-content:flex-end;margin-top:4px">
+      <button class="icon-sm" onclick="editCustomEntry('${e.id}')" aria-label="Editar"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5"/><path d="M18.5 2.5a2.1 2.1 0 0 1 3 3L12 15l-4 1 1-4z"/></svg></button>
+      <button class="icon-sm danger" onclick="removeCustomEntry('${e.id}')" aria-label="Excluir"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m3 0-1 14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2L4 6"/></svg></button>
+    </div>
+  </div>`).join(""):`<div class="empty"><b>Nenhum registro ainda</b>Preencha o formulário acima para adicionar o primeiro.</div>`;
+}
+function fmtCustomValue(field,val){
+  if(val===undefined||val===null||val==="")return"—";
+  if(field.type==="data")return fmtDateBR(val);
+  return val;
+}
+function editCustomEntry(id){
+  const list=activeCustomList();const e=list.entries.find(e=>e.id===id);if(!e)return;
+  editingCustomId=id;
+  $("customFormTitle").textContent="Editar registro";
+  $("customCancelBtn").style.display="block";
+  document.querySelectorAll(".custom-field-input").forEach(inp=>{
+    const v=e.values[inp.dataset.fieldId];
+    inp.value=v===undefined||v===null?"":v;
+  });
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+function cancelCustomEdit(){
+  editingCustomId=null;
+  $("customFormTitle").textContent="Novo registro";
+  $("customCancelBtn").style.display="none";
+  document.querySelectorAll(".custom-field-input").forEach(inp=>inp.value="");
+}
+function removeCustomEntry(id){
+  const list=activeCustomList();if(!list)return;
+  if(confirm("Excluir este registro?")){list.entries=list.entries.filter(e=>e.id!==id);saveCustomData()}
+}
+function clearCurrentCustomEntries(){
+  const list=activeCustomList();if(!list)return;
+  if(list.entries.length&&confirm(`Apagar todos os registros da lista "${list.name}"?`)){list.entries=[];saveCustomData();dlgSettings.close()}
+}
+
 /* ---------- BACKUP ---------- */
 function exportBackup(){
-  const payload={version:2,exportedAt:new Date().toISOString(),items,agua};
+  const payload={version:3,exportedAt:new Date().toISOString(),items,agua,custom};
   const blob=new Blob([JSON.stringify(payload,null,2)],{type:"application/json"});
   const url=URL.createObjectURL(blob);
   const a=document.createElement("a");
@@ -348,7 +562,9 @@ function importBackup(ev){
       const data=JSON.parse(reader.result);
       if(!Array.isArray(data.items)||!Array.isArray(data.agua))throw new Error("Formato inválido");
       if(confirm("Importar este backup vai substituir todos os dados atuais. Continuar?")){
-        items=data.items;agua=data.agua;saveEst();saveAguaData();dlgSettings.close();
+        items=data.items;agua=data.agua;
+        custom=data.custom&&Array.isArray(data.custom.lists)?data.custom:{lists:[],activeId:null};
+        saveEst();saveAguaData();saveCustomData();dlgSettings.close();
       }
     }catch(e){alert("Não foi possível ler o backup: "+e.message)}
     ev.target.value="";
@@ -358,55 +574,41 @@ function importBackup(ev){
 function clearEstoque(){if(items.length&&confirm("Apagar toda a contagem de estoque?")){items=[];saveEst();dlgSettings.close()}}
 function clearAgua(){if(agua.length&&confirm("Apagar todos os registros de água?")){agua=[];saveAguaData();dlgSettings.close()}}
 
-/* ---------- PDF ---------- */
-function pdfHeader(doc,title){
+/* ---------- IMPRESSÃO / PDF (100% offline, via impressão nativa) ---------- */
+function buildPrintReport(title,headers,rows,numericCols,totalLabel,totalValue){
   const now=new Date(),date=now.toLocaleDateString("pt-BR"),time=now.toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"});
-  doc.setFont(undefined,"bold");doc.setFontSize(17);doc.setTextColor(20,22,26);doc.text(title,14,18);
-  doc.setFont(undefined,"normal");doc.setFontSize(10);doc.setTextColor(110,115,124);
-  doc.text(`Almoxarifado · ${date} às ${time}`,14,25);
-  doc.setTextColor(0,0,0);
+  let html=`<div class="print-header"><h1>${esc(title)}</h1><p>Almoxarifado · ${date} às ${time}</p></div>`;
+  html+=`<table class="print-table"><thead><tr>${headers.map(h=>`<th>${esc(h)}</th>`).join("")}</tr></thead><tbody>`;
+  html+=rows.map(r=>`<tr>${r.map((c,i)=>`<td${numericCols.includes(i)?' class="num"':""}>${esc(String(c))}</td>`).join("")}</tr>`).join("");
+  html+="</tbody></table>";
+  if(totalLabel)html+=`<p class="print-total"><b>${esc(totalLabel)}: ${totalValue}</b></p>`;
+  $("printArea").innerHTML=html;
 }
 function makePDFEstoque(){
   if(!items.length){alert("Adicione pelo menos um item antes de emitir o PDF.");return}
-  if(!window.jspdf){alert("Não foi possível carregar o gerador de PDF. Verifique sua conexão e tente novamente.");return}
-  const btn=$("pdfEstoqueBtn");btn.disabled=true;const label=btn.textContent;btn.textContent="Gerando…";
-  try{
-    const {jsPDF}=window.jspdf;const doc=new jsPDF();
-    pdfHeader(doc,"CONTAGEM DE ESTOQUE");
-    const total=items.reduce((s,x)=>s+x.qty,0);
-    doc.autoTable({startY:31,head:[["#","Item","Código / Referência","Quantidade"]],
-      body:items.map((x,i)=>[i+1,x.name,x.code||"—",x.qty]),
-      styles:{fontSize:10,cellPadding:6},headStyles:{fillColor:[26,29,34],textColor:255},
-      columnStyles:{0:{cellWidth:12},3:{halign:"right",cellWidth:30}},theme:"striped"});
-    const finalY=doc.lastAutoTable.finalY||40;
-    doc.setFont(undefined,"bold");doc.setFontSize(12);
-    doc.text(`Total de unidades: ${total}`,196,finalY+12,{align:"right"});
-    doc.save(`contagem-estoque-${new Date().toISOString().slice(0,10)}.pdf`);
-  }catch(err){alert("Não foi possível gerar o PDF: "+err.message)}
-  finally{btn.disabled=false;btn.textContent=label}
+  const total=items.reduce((s,x)=>s+x.qty,0);
+  buildPrintReport("Contagem de estoque",["#","Item","Código / Referência","Quantidade"],
+    items.map((x,i)=>[i+1,x.name,x.code||"—",x.qty]),[0,3],"Total de unidades",total);
+  window.print();
 }
 function makePDFAgua(){
   if(!agua.length){alert("Registre pelo menos uma saída antes de emitir o PDF.");return}
-  if(!window.jspdf){alert("Não foi possível carregar o gerador de PDF. Verifique sua conexão e tente novamente.");return}
-  const btn=$("pdfAguaBtn");btn.disabled=true;const label=btn.textContent;btn.textContent="Gerando…";
-  try{
-    const {jsPDF}=window.jspdf;const doc=new jsPDF();
-    pdfHeader(doc,"CONTROLE DE SAÍDA DE ÁGUA");
-    const sorted=agua.slice().sort((a,b)=>(b.data||"").localeCompare(a.data||""));
-    const total=sorted.reduce((s,x)=>s+x.qtd,0);
-    doc.autoTable({startY:31,head:[["Galão","Quantidade","Data de Saída","Empresa"]],
-      body:sorted.map(x=>[x.galao,x.qtd,fmtDateBR(x.data),x.empresa||"—"]),
-      styles:{fontSize:10,cellPadding:6},headStyles:{fillColor:[26,29,34],textColor:255},
-      columnStyles:{1:{halign:"right",cellWidth:26}},theme:"striped"});
-    const finalY=doc.lastAutoTable.finalY||40;
-    doc.setFont(undefined,"bold");doc.setFontSize(12);
-    doc.text(`Total de unidades: ${total}`,196,finalY+12,{align:"right"});
-    doc.save(`controle-agua-${new Date().toISOString().slice(0,10)}.pdf`);
-  }catch(err){alert("Não foi possível gerar o PDF: "+err.message)}
-  finally{btn.disabled=false;btn.textContent=label}
+  const sorted=agua.slice().sort((a,b)=>(b.data||"").localeCompare(a.data||""));
+  const total=sorted.reduce((s,x)=>s+x.qtd,0);
+  buildPrintReport("Controle de saída de água",["Galão","Quantidade","Data de Saída","Empresa"],
+    sorted.map(x=>[x.galao,x.qtd,fmtDateBR(x.data),x.empresa||"—"]),[1],"Total de unidades",total);
+  window.print();
+}
+function makePDFCustom(){
+  const list=activeCustomList();if(!list||!list.entries.length){alert("Adicione pelo menos um registro antes de emitir o PDF.");return}
+  const sorted=list.entries.slice().sort((a,b)=>b.createdAt-a.createdAt);
+  const numericCols=list.fields.map((f,i)=>f.type==="numero"?i:-1).filter(i=>i>=0);
+  buildPrintReport(list.name,list.fields.map(f=>f.label),
+    sorted.map(e=>list.fields.map(f=>fmtCustomValue(f,e.values[f.id]))),numericCols,null,null);
+  window.print();
 }
 
 $("aguaData").value=new Date().toISOString().slice(0,10);
-renderEstoque();renderAgua();
+renderEstoque();renderAgua();renderCustomView();
 </script>
 </body></html>
